@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Uredi termin{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Uredi termin</h4>
+
+<form method="post" class="row g-3">
+  <div class="col-md-6">
+    <label class="form-label">Naziv</label>
+    <input name="naziv" class="form-control" value="{{ t.naziv }}" required>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Status</label>
+    <select name="status" class="form-select">
+      {% for s in ['dostupan','zauzet','otkazan'] %}
+        <option value="{{ s }}" {% if t.status == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-12">
+    <label class="form-label">Opis</label>
+    <textarea name="opis" class="form-control" rows="3">{{ t.opis or '' }}</textarea>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Datum</label>
+    <!-- bez Jinja filtera; koristimo Python .strftime -->
+    <input type="date" name="datum" class="form-control"
+           value="{{ t.datum.strftime('%Y-%m-%d') }}" required>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Vreme</label>
+    <input type="time" name="vreme" class="form-control"
+           value="{{ t.vreme.strftime('%H:%M') }}" required>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Trajanje (min)</label>
+    <input type="number" name="trajanje" class="form-control" min="1"
+           value="{{ t.trajanje }}" required>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Max korisnika</label>
+    <input type="number" name="max_korisnika" class="form-control" min="1"
+           value="{{ t.max_korisnika }}" required>
+  </div>
+
+  <div class="col-12 d-flex gap-2">
+    <button class="btn btn-primary">Sačuvaj izmene</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('admin_termini') }}">Nazad</a>
+  </div>
+</form>
+{% endblock %}

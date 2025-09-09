@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Moje rezervacije{% endblock %}
+{% block content %}
+<h4 class="mb-3">Moje rezervacije</h4>
+<table class="table table-hover align-middle">
+  <thead>
+    <tr><th>Naziv</th><th>Datum</th><th>Vreme</th><th>Status</th><th></th></tr>
+  </thead>
+  <tbody>
+    <tbody>
+  {% for r in rezervacije %}
+  <tr>
+    <td>{{ r.termin.naziv }}</td>
+    <td>{{ r.termin.datum.strftime('%d.%m.%Y') }}</td>
+    <td>{{ r.termin.vreme.strftime('%H:%M') }}</td>
+    <td>
+      {% if r.status == 'aktivna' %}
+        <span class="badge bg-success">Rezervisano</span>
+      {% elif r.status == 'otkazana' %}
+        <span class="badge bg-secondary">Otkazano</span>
+      {% else %}
+        <span class="badge bg-info">Rezervisan</span>
+      {% endif %}
+    </td>
+    <td class="text-end">
+  {% if r.status == 'aktivna' and (r.termin.datum > now.date() or (r.termin.datum == now.date() and r.termin.vreme > now.time())) %}
+  <form method="post" action="{{ url_for('otkazi_rez', rez_id=r.id) }}" onsubmit="return confirm('Da li ste sigurni da želite da otkažete ovu rezervaciju?');">
+    <button class="btn btn-sm btn-outline-danger">Otkaži</button>
+  </form>
+  {% endif %}
+</td>
+
+  </tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+{% endblock %}

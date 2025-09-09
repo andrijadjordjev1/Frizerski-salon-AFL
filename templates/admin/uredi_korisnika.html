@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Uredi korisnika{% endblock %}
+{% block content %}
+<h4 class="mb-3">Uredi korisnika</h4>
+<form method="post" class="row g-3">
+  <div class="col-md-4">
+    <label class="form-label">Ime</label>
+    <input name="ime" class="form-control" value="{{ k.ime }}" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Prezime</label>
+    <input name="prezime" class="form-control" value="{{ k.prezime }}" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Email</label>
+    <input name="email" type="email" class="form-control" value="{{ k.email }}" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Uloga</label>
+    <select name="tip_korisnika" class="form-select">
+      <option value="korisnik" {% if k.tip_korisnika=='korisnik' %}selected{% endif %}>Korisnik</option>
+      <option value="admin" {% if k.tip_korisnika=='admin' %}selected{% endif %}>Admin</option>
+    </select>
+  </div>
+  <div class="col-md-8">
+    <label class="form-label">Nova lozinka (opciono)</label>
+    <input name="password" type="password" class="form-control" placeholder="Ostavi prazno ako ne menjaš">
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary">Sačuvaj</button>
+    <a class="btn btn-link" href="{{ url_for('admin_korisnici') }}">Nazad</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row g-3">
+
+  <!-- Dostupni termini -->
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Dostupni termini</h5>
+        <div class="display-6">{{ dostupni_broj }}</div>
+        <a class="btn btn-primary mt-2" href="{{ url_for('lista_termina') }}">Pogledaj termine</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Moje rezervacije -->
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Moje rezervacije</h5>
+        <div class="display-6">{{ moje_broj }}</div>
+        <a class="btn btn-outline-primary mt-2" href="{{ url_for('moji_termini') }}">Otvori listu</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

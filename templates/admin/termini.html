@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Termini (admin){% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="section-title m-0">Termini</h4>
+  <a class="btn btn-primary" href="{{ url_for('admin_termin_novi') }}">
+    <i class="fa fa-plus me-1"></i> Novi termin
+  </a>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Naziv</th>
+      <th>Datum</th>
+      <th>Vreme</th>
+      <th>Max</th>
+      <th>Status</th>
+      <th class="text-end"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t, popunjeno in termini %}
+    <tr>
+      <td>{{ t.naziv }}</td>
+      <td>{{ t.datum.strftime('%d.%m.%Y') }}</td>
+      <td>{{ t.vreme.strftime('%H:%M') }}</td>
+      <td>{{ t.max_korisnika }}</td>
+
+      {# Status prikazujemo prema stvarnoj popunjenosti #}
+      <td>
+        {% if t.status == 'otkazan' %}
+          otkazan
+        {% elif popunjeno >= t.max_korisnika %}
+          zauzet
+        {% else %}
+          dostupan
+        {% endif %}
+      </td>
+
+      <td class="text-end">
+        <a class="btn btn-sm btn-outline-secondary"
+           href="{{ url_for('admin_termin_uredi', tid=t.id) }}">Uredi</a>
+
+        <form method="post"
+              action="{{ url_for('admin_termin_obrisi', tid=t.id) }}"
+              class="d-inline"
+              onsubmit="return confirm('Obrisati termin?');">
+          <button class="btn btn-sm btn-outline-danger">Obriši</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="6" class="text-center text-muted py-4">
+        Nema termina.
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

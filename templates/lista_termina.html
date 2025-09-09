@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Dostupni termini{% endblock %}
+
+{% block content %}
+<h4 class="mb-3">Dostupni termini</h4>
+
+<table class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th>Naziv</th>
+      <th>Datum</th>
+      <th>Vreme</th>
+      <th>Trajanje</th>
+      <th>Popunjeno</th>
+      <th class="text-end"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t, popunjeno in termini %}
+    <tr>
+      <td>{{ t.naziv }}</td>
+      <td>{{ t.datum.strftime('%d.%m.%Y') }}</td>
+      <td>{{ t.vreme.strftime('%H:%M') }}</td>
+      <td>{{ t.trajanje }} min</td>
+      <td>{{ popunjeno }}/{{ t.max_korisnika }}</td>
+
+      <td class="text-end">
+        {% if popunjeno < t.max_korisnika and t.status != 'otkazan' %}
+          <form method="post" action="{{ url_for('rezervisi', termin_id=t.id) }}">
+            <button class="btn btn-sm btn-success">Rezerviši</button>
+          </form>
+        {% else %}
+          <span class="badge bg-secondary">
+            {% if t.status == 'otkazan' %}Otkazan{% else %}Zauzet{% endif %}
+          </span>
+        {% endif %}
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="6" class="text-center text-muted py-4">
+        Trenutno nema dostupnih termina.
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Novi termin{% endblock %}
+{% block content %}
+<h4 class="mb-3">Dodaj termin</h4>
+<form method="post" class="row g-3">
+  <div class="col-md-6">
+    <label class="form-label">Naziv</label>
+    <input name="naziv" class="form-control" required>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Status</label>
+    <select name="status" class="form-select">
+      <option value="aktivno">Aktivno</option>
+      <option value="otkazano">Otkazano</option>
+      <option value="zavrseno">Završeno</option>
+    </select>
+  </div>
+  <div class="col-12">
+    <label class="form-label">Opis</label>
+    <textarea name="opis" class="form-control" rows="3"></textarea>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Datum</label>
+    <input type="date" name="datum" class="form-control" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Vreme</label>
+    <input type="time" name="vreme" class="form-control" required>
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">Trajanje (min)</label>
+    <input type="number" name="trajanje" class="form-control" value="60" min="1">
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">Max korisnika</label>
+    <input type="number" name="max_korisnika" class="form-control" value="1" min="1">
+  </div>
+  <div class="col-12">
+    <button class="btn btn-success">Sačuvaj</button>
+    <a class="btn btn-link" href="{{ url_for('admin_termini') }}">Nazad</a>
+  </div>
+</form>
+{% endblock %}

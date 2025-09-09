@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Registracija{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow">
+      <div class="card-body">
+        <h4 class="mb-3 text-center">Kreiraj nalog</h4>
+        <form method="post">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Ime</label>
+              <input name="ime" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Prezime</label>
+              <input name="prezime" class="form-control" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input name="email" type="email" class="form-control" required>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Lozinka</label>
+              <input name="password" type="password" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Ponovi lozinku</label>
+              <input name="password2" type="password" class="form-control" required>
+            </div>
+          </div>
+          <button class="btn btn-success w-100" type="submit">Registruj se</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

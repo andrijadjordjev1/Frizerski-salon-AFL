@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Korisnici{% endblock %}
+{% block content %}
+<h4 class="mb-3">Korisnici</h4>
+<table class="table table-striped">
+  <thead><tr><th>Ime</th><th>Email</th><th>Uloga</th><th>Kreiran</th><th></th></tr></thead>
+  <tbody>
+  {% for k in korisnici %}
+    <tr>
+      <td>{{ k.ime }} {{ k.prezime }}</td>
+      <td>{{ k.email }}</td>
+      <td>{{ k.tip_korisnika }}</td>
+      <td>{{ k.datum_kreiranja.strftime('%d.%m.%Y') }}</td>
+      <td class="text-end">
+        <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('admin_korisnik_uredi', uid=k.id) }}">Uredi</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

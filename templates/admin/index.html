@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Admin panel{% endblock %}
+{% block content %}
+<h4 class="mb-3">Admin panel</h4>
+<div class="row g-3">
+  <div class="col-md-4"><div class="card"><div class="card-body">
+    <h6>Ukupno korisnika</h6><div class="display-6">{{ ukupno_korisnika }}</div>
+    <a href="{{ url_for('admin_korisnici') }}" class="btn btn-link p-0">Upravljaj korisnicima</a>
+  </div></div></div>
+  <div class="col-md-4"><div class="card"><div class="card-body">
+    <h6>Ukupno termina</h6><div class="display-6">{{ ukupno_termina }}</div>
+    <a href="{{ url_for('admin_termini') }}" class="btn btn-link p-0">Upravljaj terminima</a>
+  </div></div></div>
+  <div class="col-md-4"><div class="card"><div class="card-body">
+    <h6>Rezervacije</h6><div class="display-6">{{ ukupno_rez }}</div>
+    <a href="{{ url_for('admin_rezervacije') }}" class="btn btn-link p-0">Pregled rezervacija</a>
+  </div></div></div>
+</div>
+{% endblock %}
